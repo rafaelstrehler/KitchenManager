@@ -1,0 +1,103 @@
+<table class="pure-table pure-table-bordered">
+  <thead>
+    <tr>
+        <th>was</th>
+        <th>text</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{#each test}}
+    <tr>
+      <td>{{was}}</td>
+      <td>{{text}}</td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>
+
+
+<button id="myBtn" class="pure-button">
+  <i class="fa fa-plus fa-lg"></i>
+</button>
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="page-header no-border">
+      <div class="row">
+        <h1>test erfassen</h1>
+      </div>
+    </div>
+
+    <div class="row">
+    {{#if errors.length }}
+      <button class="btn btn-danger">
+        {{#each errors}}
+            {{ this.msg }}<br>
+        {{/each}}
+      </button>
+    {{/if}}
+    </div>
+
+
+    <form class="form-horizontal" action="/test/create" method="post">
+      <div class="row">
+        <legend><i class="fa fa-plus" aria-hidden="true"></i> Test</legend>
+      </div>
+
+      <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">was</label>
+        <div class="col-sm-6">
+          <input class="form-control naming typeahead" id="was" name="was" type="text" placeholder="was" value="{{ test.was }}">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="schoolClass" class="col-sm-2 control-label">text</label>
+        <div class="col-sm-6">
+          <input class="form-control schoolclass typeahead" id="text" name="text" type="text" placeholder="Schulklasse" value="{{ test.text }}">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary abmeldebutton">Speichern</button>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>

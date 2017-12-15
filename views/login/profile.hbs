@@ -1,0 +1,22 @@
+<h1>
+    <span class="fa fa-anchor"></span> Profile Page
+</h1>
+
+<a href="/logout" class="pure-button">Logout</a>
+
+<div class="pure-g">
+    <!-- LOCAL INFORMATION -->
+    <div class="pure-u-1-3">
+        <h3>
+            <span class="fa fa-user"></span> Local
+        </h3>
+
+        <p>
+            <strong>id</strong>:{{user._id}}  <br />
+            <strong>email</strong>: {{ user.local.email }}<br />
+            <strong>password</strong>: {{ user.local.password }}<br />
+            <strong>first_name</strong>: {{ user.local.first_name }}<br />
+            <strong>last_name</strong>: {{ user.local.last_name }}
+        </p>
+    </div>
+</div>

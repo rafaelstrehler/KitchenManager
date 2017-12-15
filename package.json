@@ -1,0 +1,39 @@
+{
+  "name": "nanc",
+  "version": "0.0.1",
+  "description": "NoT aNoThEr Nodejs CRUD",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fcamichel/nanc.git"
+  },
+  "author": "Fabio A. Camichel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fcamichel/nanc/issues"
+  },
+  "homepage": "https://github.com/fcamichel/nanc#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.17.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.6",
+    "express": "^4.15.3",
+    "express-ejs-layouts": "^2.3.0",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.3",
+    "mongoose": "^4.11.3",
+    "morgan": "^1.8.2",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0"
+  }
+}

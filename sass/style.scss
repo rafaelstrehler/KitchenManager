@@ -1,0 +1,104 @@
+body {
+    font-size: 16px;
+    line-height: 1.5;
+
+    /* header section */
+    .home-menu {
+        padding: 0.5em;
+        text-align: center;
+        box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
+        background: #99C5B5;
+
+        .pure-menu-heading {
+            color: #706C61;
+            font-weight: 400;
+            font-size: 120%;
+        }
+
+        .pure-menu-list a {
+            &.pure-menu-link {
+                color: #706C61;
+            }
+            &:hover, &:focus {
+                background: none;
+                border: none;
+                color: #899E8B;
+            }
+        }
+
+        .pure-menu-selected {
+            a {
+                &.pure-menu-link {
+                    color: white;
+                }
+                &:hover, &:focus {
+                    background: none;
+                    border: none;
+                    color: #899E8B;
+                }
+            }
+
+        }
+
+        .pure-menu-children {
+            background-color: #99C5B5;
+            border: 1px solid #899E8B;
+        }
+
+        /* We can align the menu header to the left,
+        but float the menu items to the right. */
+        @media (min-width: 48em) {
+            text-align: left;
+            ul {
+                float: right;
+            }
+        }
+    }
+
+    .pure-menu.pure-menu-fixed {
+        /* Fixed menus normally have a border at the bottom. */
+        border-bottom: none;
+        /* I need a higher z-index here because of the scroll-over effect. */
+        z-index: 4;
+    }
+
+    /* main section */
+    .content-wrapper {
+        margin-top: 34px;
+        padding: 50px;
+    }
+
+    /* footer */
+    .footer {
+        background: #706C61;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        color: #899E8B;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        font-size: 12px;
+    }
+
+    /* general */
+    .is-center {
+        text-align: center;
+    }
+
+    a {
+        color: #99C5B5;
+        &:hover, &:focus {
+            text-decoration: none;
+        }
+    }
+
+    .pure-button-primary, .pure-button-selected, a.pure-button-primary, a.pure-button-selected {
+        background-color: #99C5B5;
+    }
+
+    .button-error {
+        background: #f5ab9e;
+        color: #8c3a2b;
+    }
+
+}

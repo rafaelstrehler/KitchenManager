@@ -1,0 +1,66 @@
+body {
+  font-size: 16px;
+  line-height: 1.5;
+  /* header section */
+  /* main section */
+  /* footer */
+  /* general */ }
+  body .home-menu {
+    padding: 0.5em;
+    text-align: center;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    background: #99C5B5;
+    /* We can align the menu header to the left,
+        but float the menu items to the right. */ }
+    body .home-menu .pure-menu-heading {
+      color: #706C61;
+      font-weight: 400;
+      font-size: 120%; }
+    body .home-menu .pure-menu-list a.pure-menu-link {
+      color: #706C61; }
+    body .home-menu .pure-menu-list a:hover, body .home-menu .pure-menu-list a:focus {
+      background: none;
+      border: none;
+      color: #899E8B; }
+    body .home-menu .pure-menu-selected a.pure-menu-link {
+      color: white; }
+    body .home-menu .pure-menu-selected a:hover, body .home-menu .pure-menu-selected a:focus {
+      background: none;
+      border: none;
+      color: #899E8B; }
+    body .home-menu .pure-menu-children {
+      background-color: #99C5B5;
+      border: 1px solid #899E8B; }
+    @media (min-width: 48em) {
+      body .home-menu {
+        text-align: left; }
+        body .home-menu ul {
+          float: right; } }
+  body .pure-menu.pure-menu-fixed {
+    /* Fixed menus normally have a border at the bottom. */
+    border-bottom: none;
+    /* I need a higher z-index here because of the scroll-over effect. */
+    z-index: 4; }
+  body .content-wrapper {
+    margin-top: 34px;
+    padding: 50px; }
+  body .footer {
+    background: #706C61;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    color: #899E8B;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 12px; }
+  body .is-center {
+    text-align: center; }
+  body a {
+    color: #99C5B5; }
+    body a:hover, body a:focus {
+      text-decoration: none; }
+  body .pure-button-primary, body .pure-button-selected, body a.pure-button-primary, body a.pure-button-selected {
+    background-color: #99C5B5; }
+  body .button-error {
+    background: #f5ab9e;
+    color: #8c3a2b; }

@@ -1,0 +1,28 @@
+<!-- show any messages that come back with authentication -->
+{{#if message}}
+    <button class="button-error pure-button">{{message}}</button>
+{{/if}}
+
+<!-- LOGIN FORM -->
+<form class="pure-form pure-form-stacked" action="/login" method="post">
+    <fieldset>
+        <legend><span class="fa fa-sign-in"></span> Login</legend>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="Email">
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" placeholder="Password">
+
+        <button type="submit" class="pure-button pure-button-primary">Login</button>
+    </fieldset>
+</form>
+
+<hr>
+
+<p>
+    Need an account? <a href="/signup">Signup</a>
+</p>
+<p>
+    Or go <a href="/">home</a>.
+</p>
