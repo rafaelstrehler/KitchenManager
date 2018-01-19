@@ -6,9 +6,9 @@ var Lists = require('../models/lists');
 
 module.exports = {
 
-  showTestData  : showTestData,
-  addTestData   : addTestData,
-  showCreate    : showCreate
+    showData : showData,
+    updateData : updateData,
+    showCreate : showCreate
 
 }
 
@@ -16,12 +16,12 @@ module.exports = {
  * Show the create form
  */
 function showCreate(req, res) {
-  res.render('test/create', {
+  res.render('lists/create', {
     errors: req.flash('errors')
   });
 }
 
-function addTestData(req, res) {
+function updateData(req, res) {
 
   //var content_array = {name: "mimimi", quantity: 3, currency: "stk"}
   // create a new absence
@@ -40,7 +40,7 @@ function addTestData(req, res) {
     ]
   }
 
-  Test.update( {listname: "Hello"}, {$set: testItem}, function(err, result) {
+  Lists.update( {listname: "Hello"}, {$set: testItem}, function(err, result) {
     // assert.equal(null, err);
     console.log('Item updated');
   });
@@ -61,9 +61,9 @@ newtest.save((err) => {
 }
 
 function showData(req, res) {
-  Test.find({}, (err, tests) => {
+  Lists.find({}, (err, lists) => {
     res.render('lists/index', {
-        test : tests
+        list : lists
     });
   }).lean();
 }

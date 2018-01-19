@@ -10,7 +10,7 @@ const listSchema = new Schema({
 });
 
 // create the model
-const listModel = mongoose.model('Test', listSchema);
+const listModel = mongoose.model('Lists', listSchema);
 
 // export the model
 module.exports = listSchema;
