@@ -1,4 +1,4 @@
-var Lists = require('../models/lists');
+var List = require('../models/list');
 
 /*
  public functions
@@ -6,19 +6,23 @@ var Lists = require('../models/lists');
 
 module.exports = {
 
-    showData : showData,
-    updateData : updateData,
-    showCreate : showCreate
-
+  showData : showData,
+  addData : addData,
+  showCreate : showCreate,
+  updateData : updateData
 }
 
 /**
  * Show the create form
  */
 function showCreate(req, res) {
-  res.render('lists/create', {
+  res.render('list/create', {
     errors: req.flash('errors')
   });
+}
+
+function addData(req, res) {
+
 }
 
 function updateData(req, res) {
@@ -40,7 +44,7 @@ function updateData(req, res) {
     ]
   }
 
-  Lists.update( {listname: "Hello"}, {$set: testItem}, function(err, result) {
+  List.update( {listname: "Hello"}, {$set: testItem}, function(err, result) {
     // assert.equal(null, err);
     console.log('Item updated');
   });
@@ -57,12 +61,12 @@ newtest.save((err) => {
     
   });*/
   
-  res.redirect('/lists');
+  res.redirect('/list');
 }
 
 function showData(req, res) {
-  Lists.find({}, (err, lists) => {
-    res.render('lists/index', {
+  List.find({}, (err, lists) => {
+    res.render('list/index', {
         list : lists
     });
   }).lean();

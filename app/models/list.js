@@ -5,12 +5,12 @@ const mongoose = require('mongoose'),
 const listSchema = new Schema({
     listname: String,       // name of the list
     content: Array,         // array with all records
-    changedate: Date,       // date of last change in list
-    creationdate: Date      // creation-date of list
+    creationdate: Date,     // creationdate of list
+    changedate: Date        // date of last change
 });
 
 // create the model
-const listModel = mongoose.model('Lists', listSchema);
+const listModel = mongoose.model('List', listSchema);
 
 // export the model
-module.exports = listSchema;
+module.exports = listModel;
