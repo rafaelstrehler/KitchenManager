@@ -3,6 +3,7 @@
 
 const mainController = require('./controllers/main.controller'),
       loginController = require('./controllers/login.controller'),
+      listsController = require('./controllers/lists.controller'),
       testController = require('./controllers/test.controller');
 
 
@@ -35,6 +36,8 @@ module.exports = (app, passport) => {
     app.get('/test', testController.showTestData);
 
     app.post('/test/create', testController.addTestData);
+
+    app.post('/lists', listsController.showData)
 
     // process the signup form
     app.post('/signup', passport.authenticate('local-signup', {

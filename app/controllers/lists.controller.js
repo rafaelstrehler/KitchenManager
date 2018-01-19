@@ -1,4 +1,4 @@
-var Test = require('../models/test');
+var Lists = require('../models/lists');
 
 /*
  public functions
@@ -57,12 +57,12 @@ newtest.save((err) => {
     
   });*/
   
-  res.redirect('/test');
+  res.redirect('/lists');
 }
 
-function showTestData(req, res) {
+function showData(req, res) {
   Test.find({}, (err, tests) => {
-    res.render('test/index', {
+    res.render('lists/index', {
         test : tests
     });
   }).lean();

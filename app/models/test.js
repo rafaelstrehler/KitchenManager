@@ -3,15 +3,9 @@ const mongoose = require('mongoose'),
 
 // create a schema
 const testSchema = new Schema({
-
-    // first and last name of student or teacher
-    was: String,
-    menge: String,
-    text: String,
-
+    listname: String,       // name of the list
+    content: Array          // array with all records
 });
-
-
 
 // create the model
 const testModel = mongoose.model('Test', testSchema);
