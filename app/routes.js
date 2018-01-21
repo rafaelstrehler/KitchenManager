@@ -39,7 +39,9 @@ module.exports = (app, passport) => {
 
     app.get('/list', listController.showData);
 
-    app.get('/list/create', listController.addData)
+    app.get('/list/addlist', listController.addList);
+
+    app.get('/list/additem', listController.addItemToList);
 
     // process the signup form
     app.post('/signup', passport.authenticate('local-signup', {

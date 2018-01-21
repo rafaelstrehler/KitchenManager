@@ -4,64 +4,73 @@ var List = require('../models/list');
  public functions
  */
 
-module.exports = {
+ var allLists = "";
 
+module.exports = {
   showData : showData,
-  addData : addData,
-  showCreate : showCreate,
-  updateData : updateData
+  addList : addList,
+  addItemToList : addItemToList,
+  deleteItem : deleteItem,
+  deleteList : deleteList
 }
 
-/**
- * Show the create form
- */
-function showCreate(req, res) {
-  res.render('list/create', {
-    errors: req.flash('errors')
+function deleteList(req, res)
+{
+
+}
+
+function deleteItem(req, res)
+{
+  
+}
+
+function addList(req, res) {
+  // create a new absence
+  const newlist = new List({
+    listname: req.body.title,
+    content: [],
+    creationdate: new Date(),
+    changedate: new Date()
+  });
+
+  newlist.save((err) => {
+    if (err)
+      console.log(err);    
+    else 
+      console.log('List added to DB');
   });
 }
 
-function addData(req, res) {
-
-}
-
-function updateData(req, res) {
-
-  //var content_array = {name: "mimimi", quantity: 3, currency: "stk"}
-  // create a new absence
-  /*const newtest = new Test({
-    listname: "Hello",
-    content: []
-  });*/
-
-  var testItem = {
-    content: [
-      {
-        name: "Gruzi",
-        quantity: 11,
-        currency: "löffel"
-      }
-    ]
+function addItemToList(req, res) {
+  var newItem = {
+    name: req.query.name,
+    quantity: req.query.quantity,
+    currency: req.query.currency
   }
 
-  List.update( {listname: "Hello"}, {$set: testItem}, function(err, result) {
-    // assert.equal(null, err);
-    console.log('Item updated');
-  });
-  
-  console.log('it works');
-  // save Absence
-/*
-newtest.save((err) => {
-    if (err)
-      console.log(err);
-
-    // set a successful flash message
-    req.flash('success', 'Absenz erfolgreich erstellt!');
-    
-  });*/
-  
+  for (var i=0;i<allLists.length;i++)
+  {
+    var actList = allLists[i];
+    if(actList.listname == req.query.listname)
+    {
+      actList.content.push(newItem);
+      update(actlist, function(err, result){
+        if(err)
+          console.log(err);
+        else
+          console.log('Item added to list');
+      });
+    }
+  }  
   res.redirect('/list');
+}
+
+function update(actList, callback)
+{
+  actList.changedate = new Date();
+  List.update( {listname: actList.listname}, {$set: actList}, function(err, result) {
+    callback(err, result);
+  });
 }
 
 function showData(req, res) {
@@ -69,5 +78,6 @@ function showData(req, res) {
     res.render('list/index', {
         list : lists
     });
+    allLists = lists;
   }).lean();
 }
