@@ -43,6 +43,10 @@ module.exports = (app, passport) => {
 
     app.get('/list/additem', listController.addItemToList);
 
+    app.get('/list/removelist', listController.deleteList);
+
+    app.get('/list/removeitem', listController.deleteItem);
+
     // process the signup form
     app.post('/signup', passport.authenticate('local-signup', {
         // redirect to the secure profile section
