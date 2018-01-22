@@ -13,7 +13,7 @@
       <h2>{{listname}}</h2>
       <form method="get" action="/list/removelist">
 
-          <input type="text" name="listname" style="display: none" value="{{listname}}">
+          <input type="text" name="listid" style="display: none" value="{{_id}}">
           <input type="submit" value="Löschen">
       </form>
       <table class="pure-table pure-table-bordered">
@@ -174,17 +174,6 @@ function openCity(evt, cityName) {
   evt.currentTarget.className += " w3-red";
 }
 </script>
-
-
-
-
-
-
-
-
-
-
-
 
 <script>
 // Get hidden input-field

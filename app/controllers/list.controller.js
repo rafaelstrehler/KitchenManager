@@ -17,7 +17,8 @@ module.exports = {
 
 function deleteList(req, res)
 {
-  List.deleteOne({ _id: mongoose.Types.ObjectId(req.query.listid) }, function (err) {});
+  console.log(req.query);
+  List.deleteOne({ _id: mongoose.Types.ObjectId(req.query.listid) }, function (err) {console.log(err);});
 }
 
 function deleteItem(req, res)
@@ -32,7 +33,7 @@ function deleteItem(req, res)
       }
   );
 
-  res.redirect('/list?list=req.query.listid');
+  res.redirect('/list');
 }
 
 function addList(req, res) {
