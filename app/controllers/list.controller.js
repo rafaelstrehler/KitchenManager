@@ -6,23 +6,28 @@ var List = require('../models/list');
 
 module.exports = {
 
-  showData : showData,
-  addData : addData,
-  showCreate : showCreate,
-  updateData : updateData
+    showData : showData,
+    updateData : updateData,
+    showCreate : showCreate
+
+}
+
+
+function showData(req, res) {
+  List.find({}, (err, lists) => {
+    res.render('list/index', {
+      list : lists
+    });
+  }).lean();
 }
 
 /**
  * Show the create form
  */
 function showCreate(req, res) {
-  res.render('list/create', {
+  res.render('lists/create', {
     errors: req.flash('errors')
   });
-}
-
-function addData(req, res) {
-
 }
 
 function updateData(req, res) {
@@ -48,7 +53,7 @@ function updateData(req, res) {
     // assert.equal(null, err);
     console.log('Item updated');
   });
-  
+
   console.log('it works');
   // save Absence
 /*
@@ -58,16 +63,8 @@ newtest.save((err) => {
 
     // set a successful flash message
     req.flash('success', 'Absenz erfolgreich erstellt!');
-    
-  });*/
-  
-  res.redirect('/list');
-}
 
-function showData(req, res) {
-  List.find({}, (err, lists) => {
-    res.render('list/index', {
-        list : lists
-    });
-  }).lean();
+  });*/
+
+  res.redirect('/lists');
 }
