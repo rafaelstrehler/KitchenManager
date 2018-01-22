@@ -46,72 +46,74 @@
         Neues Element
       </button>
 
-
-      <!-- The Modal -->
-      <div id="addItemModal" class="modal">
-
-        <!-- Modal content -->
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <div class="page-header no-border">
-            <div class="row">
-              <h1>Neues Element erfassen</h1>
-            </div>
-          </div>
-
-          <div class="row">
-          {{#if errors.length }}
-            <button class="btn btn-danger">
-              {{#each errors}}
-                  {{ this.msg }}<br>
-              {{/each}}
-            </button>
-          {{/if}}
-          </div>
-
-
-          <form class="form-horizontal" action="/list/additem" method="get">
-            <div class="row">
-              <legend><i class="fa fa-plus" aria-hidden="true"></i> asdf</legend>
-            </div>
-
-            <div class="form-group">
-              <label for="name" class="col-sm-2 control-label">Name</label>
-              <div class="col-sm-6">
-                <input class="form-control naming typeahead" id="name" name="name" type="text" placeholder="Name">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="quantity" class="col-sm-2 control-label">Menge</label>
-              <div class="col-sm-6">
-                <input class="form-control typeahead" id="quantity" name="quantity" type="text" placeholder="Menge">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="currency" class="col-sm-2 control-label">Einheit</label>
-              <div class="col-sm-6">
-                <input class="form-control typeahead" id="currency" name="currency" type="text" placeholder="Einheit">
-              </div>
-            </div>
-
-            <!-- Pass listname in this hidden input -->
-            <input style="display: none" value="" id="_listname" name="listname" type="text">
-
-            <div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary abmeldebutton">Speichern</button>
-              </div>
-            </div>
-
-
-          </form>
-        </div>
-
-      </div>
     </div>
   {{/each}}
 
 </div>
+
+<!-- The Modal -->
+<div id="addItemModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="page-header no-border">
+      <div class="row">
+        <h1>Neues Element erfassen</h1>
+      </div>
+    </div>
+
+    <div class="row">
+    {{#if errors.length }}
+      <button class="btn btn-danger">
+        {{#each errors}}
+            {{ this.msg }}<br>
+        {{/each}}
+      </button>
+    {{/if}}
+    </div>
+
+
+    <form class="form-horizontal" action="/list/additem" method="get">
+      <div class="row">
+        <legend><i class="fa fa-plus" aria-hidden="true"></i> asdf</legend>
+      </div>
+
+      <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-6">
+          <input class="form-control naming typeahead" id="name" name="name" type="text" placeholder="Name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="quantity" class="col-sm-2 control-label">Menge</label>
+        <div class="col-sm-6">
+          <input class="form-control typeahead" id="quantity" name="quantity" type="text" placeholder="Menge">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="currency" class="col-sm-2 control-label">Einheit</label>
+        <div class="col-sm-6">
+          <input class="form-control typeahead" id="currency" name="currency" type="text" placeholder="Einheit">
+        </div>
+      </div>
+
+      <!-- Pass listname in this hidden input -->
+      <input style="display: none" value="" id="_listname" name="listname" type="text">
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary abmeldebutton">Speichern</button>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+
+</div>
+
+
 <div id="newListModal" class="modal">
 
   <!-- Modal content -->
