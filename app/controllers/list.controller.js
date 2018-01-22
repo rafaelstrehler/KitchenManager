@@ -32,9 +32,7 @@ function deleteItem(req, res)
       }
   );
 
-
-console.log('updated!!---------------------');
-  res.redirect('/list');
+  res.redirect('/list?list=req.query.listid');
 }
 
 function addList(req, res) {
