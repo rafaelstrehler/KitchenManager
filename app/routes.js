@@ -3,8 +3,7 @@
 
 const mainController = require('./controllers/main.controller'),
       loginController = require('./controllers/login.controller'),
-      listController = require('./controllers/list.controller'),
-      testController = require('./controllers/test.controller');
+      listController = require('./controllers/list.controller');
 
 
 module.exports = (app, passport) => {
@@ -32,10 +31,6 @@ module.exports = (app, passport) => {
     // SIGNUP ==============================
     // =====================================
     app.get('/signup', loginController.showSignup);
-
-    app.get('/test', testController.showTestData);
-
-    app.post('/test/create', testController.addTestData);
 
     app.get('/list', listController.showData);
 
