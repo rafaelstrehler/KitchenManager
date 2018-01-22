@@ -3,7 +3,7 @@ const mongoose = require('mongoose'),
 
 // create a schema
 const listSchema = new Schema({
-    id: Number,             // id (always counts up)
+    id: [Number],             // id (always counts up)
     listname: String,       // name of the list
     content: Array,         // array with all records
     creationdate: Date,     // creationdate of list
