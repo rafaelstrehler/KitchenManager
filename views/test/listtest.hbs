@@ -1,5 +1,6 @@
 
 {{#each list}}
+
 <form method="get" action="/list/removelist">
     <h1>{{listname}}</h1>
     <input type="text" name="listname" style="display: none" value="{{listname}}">
@@ -12,7 +13,7 @@
         <th>Menge</th>
         <th>Mass</th>
     </tr>
-  </thead>  
+  </thead>
   <tbody>
     {{#each content}}
     <tr>
@@ -22,7 +23,7 @@
       <td>
           <form method="get" action="/list/removeitem">
             <input type="text" name="id" style="display: none" value="{{id}}" />
-            <input type="text" name="listname" style="display: none" value="{{../listname}}" />
+            <input type="text" name="listid" style="display: none" value="{{../_id}}" />
             <input type="submit" value="Löschen">
           </form>
       </td>

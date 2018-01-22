@@ -1,4 +1,5 @@
 var List = require('../models/list');
+var mongoose = require('mongoose')
 
 /*
  public functions
@@ -21,36 +22,18 @@ function deleteList(req, res)
 
 function deleteItem(req, res)
 {
-  console.log("start deleting");
-  for(var i=0;i<allLists.length;i++)
-  {
-    console.log("1");
-    actList = allLists[i];
-    if(actList.listname == req.query.listname)
-    {
-      console.log("2");
-      for(var j=0;i<actList.content.length;j++)
-      {
-        console.log("3");
-        var actContent = actList.content[j];
-        if(actContent.id == req.query.id)
-        {
-          console.log("4");
-          actList.content.splice(actList.content.indexOf(actContent), 1);
-          actList.content.splice(j, 1);
-          actList.content[j] = actContent;
-          update(actList, function(err, res) {
-            console.log("5");
-            if(err)
-              console.log(err);
-            else
-              console.log('Item deleted');
-          });
-          break;
-        }
+  var listid = parseInt(req.query.id);
+  List.update(
+      { _id: mongoose.Types.ObjectId(req.query.listid) },
+      { $pull: { content: { id: listid } } },
+      function(err, numAffected) {
+          console.log('error: ',err);
+          console.log('numAffected: ',numAffected);
       }
-    }
-  }
+  );
+
+
+console.log('updated!!---------------------');
   res.redirect('/list');
 }
 
@@ -65,8 +48,8 @@ function addList(req, res) {
 
   newlist.save((err) => {
     if (err)
-      console.log(err);    
-    else 
+      console.log(err);
+    else
     {
       console.log('List added to DB');
     }
@@ -94,11 +77,11 @@ function addItemToList(req, res) {
           console.log(err);
         else
           console.log('Item added to list');
-        
+
         res.redirect('/list');
       });
     }
-  }  
+  }
 }
 
 function getNewItemId(actItem, actList)
