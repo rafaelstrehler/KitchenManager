@@ -32,8 +32,6 @@ function deleteItem(req, res)
       }
   );
 
-
-console.log('updated!!---------------------');
   res.redirect('/list');
 }
 
