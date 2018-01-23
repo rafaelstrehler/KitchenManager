@@ -10,7 +10,7 @@ module.exports = (app, passport) => {
     // =====================================
     // HOME PAGE ===========================
     // =====================================
-    app.get('/', isLoggedIn, listController.showData);
+    app.get('/', loginController.showLogin);
 
     // =====================================
     // LOGIN ===============================
