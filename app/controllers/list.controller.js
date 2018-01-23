@@ -34,7 +34,7 @@ function deleteItem(req, res)
       }
   );
 
-  res.redirect('/list?list=req.query.listid');
+  res.redirect('/list');
 }
 
 function addList(req, res) {
@@ -77,8 +77,11 @@ function addItemToList(req, res) {
           console.log(err);
         else
           console.log('Item added to list');
+          console.log(actList.listname);
+          var current_list = actList._id;
 
-        res.redirect('/list');
+          res.redirect('/list?current_list=' + current_list);
+
       });
     }
   }

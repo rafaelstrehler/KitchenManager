@@ -1,6 +1,7 @@
 <div class="w3-sidebar w3-bar-block w3-light-grey w3-card desktop desktop-menu">
+
   {{#each list}}
-    <button class="w3-bar-item w3-button tablink" onclick="openCity(event, '{{listname}}')">{{listname}}</button>
+    <button class="w3-bar-item w3-button tablink {{_id}}button" onclick="openCity(event, '{{_id}}')">{{listname}}</button>
   {{/each}}
   <button id="newListBtn" class="pure-button">
     Neue Liste
@@ -9,7 +10,7 @@
 
 <div class="w3-row mobile">
   {{#each list}}
-    <a href="javascript:void(0)" onclick="openCity(event, '{{listname}}');">
+    <a class="{{_id}}button" href="javascript:void(0)" onclick="openCity(event, '{{listname}}');">
       <div class="w3-third full-width tablink w3-bottombar w3-hover-light-grey w3-padding">{{listname}}</div>
     </a>
   {{/each}}
@@ -22,7 +23,7 @@
 
 <div class="content-div">
   {{#each list}}
-    <div id="{{listname}}" class="w3-container list w3-animate-zoom" style="display:none">
+    <div id="{{_id}}" class="w3-container list w3-animate-zoom" style="display:none">
       <h2>{{listname}}</h2>
       <form method="get" action="/list/removelist">
 
@@ -172,6 +173,71 @@
   </div>
 
 </div>
+
+<script>
+function getAllUrlParams(url) {
+
+  // get query string from url (optional) or window
+  var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
+
+  // we'll store the parameters here
+  var obj = {};
+
+  // if query string exists
+  if (queryString) {
+
+    // stuff after # is not part of query string, so get rid of it
+    queryString = queryString.split('#')[0];
+
+    // split our query string into its component parts
+    var arr = queryString.split('&');
+
+    for (var i=0; i<arr.length; i++) {
+      // separate the keys and the values
+      var a = arr[i].split('=');
+
+      // in case params look like: list[]=thing1&list[]=thing2
+      var paramNum = undefined;
+      var paramName = a[0].replace(/\[\d*\]/, function(v) {
+        paramNum = v.slice(1,-1);
+        return '';
+      });
+
+      // set parameter value (use 'true' if empty)
+      var paramValue = typeof(a[1])==='undefined' ? true : a[1];
+
+      // (optional) keep case consistent
+      paramName = paramName.toLowerCase();
+      paramValue = paramValue.toLowerCase();
+
+      // if parameter name already exists
+      if (obj[paramName]) {
+        // convert value to array (if still string)
+        if (typeof obj[paramName] === 'string') {
+          obj[paramName] = [obj[paramName]];
+        }
+        // if no array index number specified...
+        if (typeof paramNum === 'undefined') {
+          // put the value on the end of the array
+          obj[paramName].push(paramValue);
+        }
+        // if array index number specified...
+        else {
+          // put the value at that index number
+          obj[paramName][paramNum] = paramValue;
+        }
+      }
+      // if param name doesn't exist yet, set it
+      else {
+        obj[paramName] = paramValue;
+      }
+    }
+  }
+
+  return obj;
+}
+</script>
+
 <script>
 function openCity(evt, cityName) {
   var i, x, tablinks;
@@ -181,15 +247,29 @@ function openCity(evt, cityName) {
   }
   tablinks = document.getElementsByClassName("tablink");
   for (i = 0; i < x.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
   document.getElementById(cityName).style.display = "block";
-  evt.currentTarget.className += " w3-red";
+  evt.currentTarget.className += " active";
+}
+if (getAllUrlParams().current_list) {
+var active_list = document.getElementById(getAllUrlParams().current_list);
+var listid = '.' + getAllUrlParams().current_list +  'button';
+var active_list_button = document.getElementsByClassName(getAllUrlParams().current_list + 'button');
+
+console.log(getAllUrlParams().current_list);
+active_list.style.display = "block";
+jQuery(listid).addClass('active');
+console.log('button: ', jQuery(listid));
+} else {
+  jQuery('.content-div > div:first-of-type').css('display', 'block');
+  jQuery('.w3-sidebar > button:first-of-type').addClass('active');
 }
 </script>
 
 <script>
 // Get hidden input-field
+
 var listnameField = document.getElementById('_listname');
 // Get the modal
 var newListModal = document.getElementById('newListModal');
