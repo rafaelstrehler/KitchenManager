@@ -18,7 +18,7 @@ module.exports = {
 function deleteList(req, res)
 {
   List.deleteOne({ _id: mongoose.Types.ObjectId(req.query.listid) }, function (err) {});
-  res.redirect('/list');
+  res.render('list/index');
 
 }
 
