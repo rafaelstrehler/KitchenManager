@@ -42,6 +42,10 @@ module.exports = (app, passport) => {
 
     app.get('/list/removeitem', isLoggedIn, listController.deleteItem);
 
+    app.get('/list/editlistname', isLoggedIn, listController.editListname);
+    
+    app.get('/list/edititem', isLoggedIn, listController.editItem);
+
     // process the signup form
     app.post('/signup', isLoggedIn, passport.authenticate('local-signup', {
         // redirect to the secure profile section

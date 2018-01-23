@@ -24,11 +24,18 @@
 <div class="content-div">
   {{#each list}}
     <div id="{{_id}}" class="w3-container list w3-animate-zoom" style="display:none">
-      <h2>{{listname}}</h2>
-      <form method="get" action="/list/removelist">
-
+      
+      <form class="list-title" id="{{_id}}form" method="get" action="/list/removelist">
+        <h2 style="display: inline">
+          {{listname}}
           <input type="text" name="listid" style="display: none" value="{{_id}}">
-          <input type="submit" value="Löschen">
+          <a title="Liste löschen" style="display: inline-block;" href="javascript:void(0)" onclick="submitForm('{{_id}}form')">
+            <legend><i class="fa fa-trash-o"></i></legend>
+          </a>
+          <a title="Listenname bearbeiten" style="display: inline-block;" href="javascript:void(0)" onclick="openEditListName('{{listname}}', '{{_id}}')">
+            <legend><i class="fa fa-pencil"></i></legend>
+          </a>
+        </h2>
       </form>
       <table class="pure-table pure-table-bordered">
         <thead>
@@ -36,19 +43,25 @@
               <th>Was</th>
               <th>Menge</th>
               <th>Mass</th>
+              <th style="text-align:center">...</th>
           </tr>
         </thead>
         <tbody>
           {{#each content}}
           <tr>
             <td>{{name}}</td>
-            <td>{{quantity}}</td>
+            <td style="text-align:center">{{quantity}}</td>
             <td>{{currency}}</td>
-            <td>
-                <form method="get" action="/list/removeitem">
+            <td class="action-btns">
+                <form id="{{../_id}}_{{id}}form" method="get" action="/list/removeitem">
                   <input type="text" name="id" style="display: none" value="{{id}}" />
                   <input type="text" name="listid" style="display: none" value="{{../_id}}" />
-                  <input type="submit" value="Löschen">
+                  <a title="Bearbeiten" href="javascript:void(0)" onclick="openEditItemModal('{{../_id}}','{{id}}','{{name}}','{{quantity}}','{{currency}}')">
+                    <legend><i class="fa fa-pencil"></i></legend>
+                  </a>
+                  <a title="Löschen" href="javascript:void(0)" onclick="submitForm('{{../_id}}_{{id}}form')">
+                    <legend><i class="fa fa-trash-o"></i></legend>
+                  </a>
                 </form>
             </td>
           </tr>
@@ -113,7 +126,7 @@
       </div>
 
       <!-- Pass listname in this hidden input -->
-      <input style="display: none" value="" id="_listname" name="listname" type="text">
+      <input style="display: none" value="" id="_listname1" name="listname" type="text">
 
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
@@ -158,13 +171,116 @@
       <div class="form-group">
         <label for="listname" class="col-sm-2 control-label">Listenname:</label>
         <div class="col-sm-6">
-          <input class="form-control naming typeahead" id="listname" name="listname" type="text" placeholder="Listenname">
+          <input class="form-control naming typeahead" name="listname" type="text" placeholder="Listenname">
         </div>
       </div>
 
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
           <button type="submit" class="btn btn-primary abmeldebutton">Erstellen</button>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+
+</div>
+
+<div id="editListNameModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="page-header no-border">
+      <div class="row">
+        <h1>Listenname bearbeiten</h1>
+      </div>
+    </div>
+
+    <div class="row">
+    {{#if errors.length }}
+      <button class="btn btn-danger">
+        {{#each errors}}
+            {{ this.msg }}<br>
+        {{/each}}
+      </button>
+    {{/if}}
+    </div>
+
+
+    <form class="form-horizontal" action="/list/editlistname" method="get">
+
+      <div class="form-group">
+        <label for="listname" class="col-sm-2 control-label">Listenname:</label>
+        <div class="col-sm-6">
+          <input class="form-control naming typeahead" id="listnameEditListname" name="newlistname" type="text" placeholder="Listenname">
+        </div>
+      </div>
+      <input type="hidden" id="idEditListname" name="listid"> 
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary abmeldebutton">Ändern</button>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+
+</div>
+
+<div id="editItemModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="page-header no-border">
+      <div class="row">
+        <h1>Element bearbeiten</h1>
+      </div>
+    </div>
+
+    <div class="row">
+    {{#if errors.length }}
+      <button class="btn btn-danger">
+        {{#each errors}}
+            {{ this.msg }}<br>
+        {{/each}}
+      </button>
+    {{/if}}
+    </div>
+
+
+    <form class="form-horizontal" action="/list/edititem" method="get">
+
+      <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-6">
+          <input class="form-control naming typeahead" id="nameEditItem" name="name" type="text" placeholder="Name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="quantity" class="col-sm-2 control-label">Menge</label>
+        <div class="col-sm-6">
+          <input class="form-control typeahead" id="quantityEditItem" name="quantity" type="text" placeholder="Menge">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="currency" class="col-sm-2 control-label">Einheit</label>
+        <div class="col-sm-6">
+          <input class="form-control typeahead" id="currencyEditItem" name="currency" type="text" placeholder="Einheit">
+        </div>
+      </div>
+
+      <!-- Pass listname in this hidden input -->
+      <input style="display: none" value="" id="listidEditItem" name="listid" type="text">
+      <input style="display: none" value="" id="itemidEditItem" name="itemid" type="text">
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary abmeldebutton">Speichern</button>
         </div>
       </div>
 
@@ -270,23 +386,30 @@ console.log('button: ', jQuery(listid));
 <script>
 // Get hidden input-field
 
-var listnameField = document.getElementById('_listname');
+var listnameField1 = document.getElementById('_listname1');
+
 // Get the modal
 var newListModal = document.getElementById('newListModal');
 var addItemModal = document.getElementById('addItemModal');
+var editListNameModal = document.getElementById('editListNameModal');
+var editItemModal = document.getElementById('editItemModal');
 // Get the button that opens the modal
 var newListBtn = document.getElementById("newListBtn");
 var addItemBtn = document.getElementById("newItemBtn");
+var editListNameBtn = document.getElementById("editListNameBtn");
+var editItemBtn = document.getElementById("editItemBtn");
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 // When the user clicks the button, open the modal
 newListBtn.onclick = function() {
-    newListModal.style.display = "block"
+    newListModal.style.display = "block";
 }
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
     addItemModal.style.display = "none";
     newListModal.style.display = "none";
+    editListNameModal.style.display = "none";
+    editItemModal.style.display = "none";
 }
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
@@ -296,11 +419,36 @@ window.onclick = function(event) {
     if (event.target == newListModal) {
         newListModal.style.display = "none";
     }
+    if (event.target == editListNameModal) {
+        editListNameModal.style.display = "none";
+    }
+    if (event.target == editItemModal) {
+        editItemModal.style.display = "none";
+    }
 }
 // Open newitem-modal and set listname of selected list
 function openNewItemModal(listname)
 {
     addItemModal.style.display = "block";
-    listnameField.value = listname;
+    listnameField1.value = listname;
+}
+function openEditListName(listname, id)
+{
+    editListNameModal.style.display = "block";
+    document.getElementById('listnameEditListname').value = listname;
+    document.getElementById('idEditListname').value = id;
+}
+function openEditItemModal(listid, itemid, name, quantity, currency) {
+    editItemModal.style.display = "block";
+    document.getElementById('nameEditItem').value = name;
+    document.getElementById('quantityEditItem').value = quantity;
+    document.getElementById('currencyEditItem').value = currency;
+    document.getElementById('listidEditItem').value = listid;
+    document.getElementById('itemidEditItem').value = itemid;
+}
+// Submit form
+function submitForm(formId) {
+    console.log(formId)
+    document.getElementById(formId).submit();
 }
 </script>
