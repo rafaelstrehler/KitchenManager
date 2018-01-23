@@ -48,14 +48,16 @@ function addList(req, res) {
     changedate: new Date()
   });
 
-  newlist.save((err) => {
+  newlist.save((err, list) => {
     if (err)
       console.log(err);
     else
     {
       console.log('List added to DB');
     }
-    res.redirect('/list');
+    console.log(list._id);
+    var current_list = list._id;
+    res.redirect('/list?current_list=' + current_list);
   });
 }
 
@@ -66,13 +68,11 @@ function addItemToList(req, res) {
     quantity: req.query.quantity,
     currency: req.query.currency
   }
-  console.log('hello---1');
   for (var i=0;i<allLists.length;i++)
   {
     var actList = allLists[i];
     if(actList._id == req.query.listname)
     {
-      console.log('hello---2');
 
       newItem.id = getNewItemId(newItem, actList);
       actList.content.push(newItem);
