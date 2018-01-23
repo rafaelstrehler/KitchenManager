@@ -33,10 +33,6 @@ module.exports = (app, passport) => {
     // =====================================
     app.get('/signup', loginController.showSignup);
 
-    app.get('/test', testController.showTestData);
-
-    app.post('/test/create', testController.addTestData);
-
     app.get('/list', listController.showData);
 
     app.get('/list/addlist', listController.addList);

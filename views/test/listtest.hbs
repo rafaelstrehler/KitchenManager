@@ -1,4 +1,4 @@
-<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
+<div class="w3-sidebar w3-bar-block w3-light-grey w3-card desktop" style="min-width:130px">
   {{#each list}}
     <button class="w3-bar-item w3-button tablink" onclick="openCity(event, '{{listname}}')">{{listname}}</button>
   {{/each}}
@@ -7,13 +7,26 @@
   </button>
 </div>
 
-<div style="margin-left:130px">
+<div class="w3-row mobile">
   {{#each list}}
-    <div id="{{listname}}" class="w3-container list" style="display:none">
+    <a href="javascript:void(0)" onclick="openCity(event, '{{listname}}');">
+      <div class="w3-third full-width tablink w3-bottombar w3-hover-light-grey w3-padding">{{listname}}</div>
+    </a>
+  {{/each}}
+  <button id="newListBtn" class="pure-button">
+    Neue Liste
+  </button>
+
+</div>
+
+
+<div class="content-div">
+  {{#each list}}
+    <div id="{{listname}}" class="w3-container list w3-animate-zoom" style="display:none">
       <h2>{{listname}}</h2>
       <form method="get" action="/list/removelist">
 
-          <input type="text" name="listname" style="display: none" value="{{listname}}">
+          <input type="text" name="listid" style="display: none" value="{{_id}}">
           <input type="submit" value="Löschen">
       </form>
       <table class="pure-table pure-table-bordered">
@@ -175,17 +188,6 @@ function openCity(evt, cityName) {
 }
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
 <script>
 // Get hidden input-field
 var listnameField = document.getElementById('_listname');
@@ -221,4 +223,6 @@ function openNewItemModal(listname)
     addItemModal.style.display = "block";
     listnameField.value = listname;
 }
+
+
 </script>
