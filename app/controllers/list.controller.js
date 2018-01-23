@@ -115,5 +115,6 @@ function showData(req, res) {
         list : lists
     });
     allLists = lists;
+    console.log("this is user: " + req.user + "end!!!");
   }).lean();
 }
