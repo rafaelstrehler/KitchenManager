@@ -24,17 +24,19 @@ function deleteList(req, res)
 
 function deleteItem(req, res)
 {
-  var listid = parseInt(req.query.id);
+  var contentid = parseInt(req.query.id);
   List.update(
       { _id: mongoose.Types.ObjectId(req.query.listid) },
-      { $pull: { content: { id: listid } } },
+      { $pull: { content: { id: contentid } } },
       function(err, numAffected) {
           console.log('error: ',err);
           console.log('numAffected: ',numAffected);
       }
   );
 
-  res.redirect('/list');
+  var current_list = req.query.listid; //<-- list _id
+  res.redirect('/list?current_list=' + current_list);
+
 }
 
 function addList(req, res) {
@@ -64,12 +66,14 @@ function addItemToList(req, res) {
     quantity: req.query.quantity,
     currency: req.query.currency
   }
-
+  console.log('hello---1');
   for (var i=0;i<allLists.length;i++)
   {
     var actList = allLists[i];
-    if(actList.listname == req.query.listname)
+    if(actList._id == req.query.listname)
     {
+      console.log('hello---2');
+
       newItem.id = getNewItemId(newItem, actList);
       actList.content.push(newItem);
       update(actList, function(err, result){
@@ -78,8 +82,8 @@ function addItemToList(req, res) {
         else
           console.log('Item added to list');
           console.log(actList.listname);
-          var current_list = actList._id;
 
+          var current_list = req.query.listname; //<-- list _id
           res.redirect('/list?current_list=' + current_list);
 
       });
