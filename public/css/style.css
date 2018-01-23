@@ -9,28 +9,28 @@ body {
     padding: 0.5em;
     text-align: center;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-    background: #3498db;
+    background: #99C5B5;
     /* We can align the menu header to the left,
         but float the menu items to the right. */ }
     body .home-menu .pure-menu-heading {
-      color: #fff;
+      color: #706C61;
       font-weight: 400;
       font-size: 120%; }
     body .home-menu .pure-menu-list a.pure-menu-link {
-      color: #fff; }
+      color: #706C61; }
     body .home-menu .pure-menu-list a:hover, body .home-menu .pure-menu-list a:focus {
       background: none;
       border: none;
-      color: #bdc3c7; }
+      color: #899E8B; }
     body .home-menu .pure-menu-selected a.pure-menu-link {
-      color: #fff; }
+      color: white; }
     body .home-menu .pure-menu-selected a:hover, body .home-menu .pure-menu-selected a:focus {
       background: none;
       border: none;
-      color: #bdc3c7; }
+      color: #899E8B; }
     body .home-menu .pure-menu-children {
-      background-color: #3498db;
-      border: 1px solid #bdc3c7; }
+      background-color: #99C5B5;
+      border: 1px solid #899E8B; }
     @media (min-width: 48em) {
       body .home-menu {
         text-align: left; }
@@ -56,11 +56,29 @@ body {
   body .is-center {
     text-align: center; }
   body a {
-    color: #61b0e4; }
+    color: #99C5B5; }
     body a:hover, body a:focus {
       text-decoration: none; }
   body .pure-button-primary, body .pure-button-selected, body a.pure-button-primary, body a.pure-button-selected {
-    background-color: #61b0e4; }
+    background-color: #99C5B5; }
   body .button-error {
     background: #f5ab9e;
     color: #8c3a2b; }
+  @media screen and (max-width: 767px) {
+    body .desktop {
+      display: none; }
+    body .mobile {
+      display: block; } }
+  @media screen and (min-width: 768px) {
+    body .content-div {
+      margin-left: 200px; }
+    body .desktop {
+      display: block; }
+    body .mobile {
+      display: none; } }
+  body .full-width {
+    width: 100%; }
+  body .float-right {
+    float: right; }
+  body .float-left {
+    float: left; }

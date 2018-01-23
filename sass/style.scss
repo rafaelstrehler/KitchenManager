@@ -101,4 +101,38 @@ body {
         color: #8c3a2b;
     }
 
+    @media screen and (max-width:767px) {
+      .desktop{
+        display: none;
+      }
+      .mobile{
+        display: block;
+      }
+    }
+
+    @media screen and (min-width:768px) {
+      .content-div {
+        margin-left:200px;
+      }
+      .desktop{
+        display: block;
+      }
+      .mobile{
+        display: none;
+      }
+    }
+
+    .full-width {
+      width: 100%;
+    }
+
+    .float-right {
+      float: right;
+    }
+
+    .float-left {
+      float: left;
+    }
+
+
 }
