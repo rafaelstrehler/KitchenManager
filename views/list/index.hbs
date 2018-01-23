@@ -1,38 +1,78 @@
-{{#each list}}
-<h1>{{listname}}</h1>
-<table class="pure-table pure-table-bordered">
-  <thead>
-    <tr>
-        <th>Was</th>
-        <th>Menge</th>
-        <th>Mass</th>
-    </tr>
-  </thead>  
-  <tbody>
-    {{#each content}}
-    <tr>
-      <td>{{name}}</td>
-      <td>{{quantity}}</td>
-      <td>{{currency}}</td>
-    </tr
-    {{/each}}
-  </tbody>
-</table>
-{{/each}}
+<div class="w3-sidebar w3-bar-block w3-light-grey w3-card desktop" style="min-width:130px">
+  {{#each list}}
+    <button class="w3-bar-item w3-button tablink" onclick="openCity(event, '{{listname}}')">{{listname}}</button>
+  {{/each}}
+  <button id="newListBtn" class="pure-button">
+    Neue Liste
+  </button>
+</div>
 
-<button id="myBtn" class="pure-button">
-  <i class="fa fa-plus fa-lg"></i>
-</button>
+<div class="w3-row mobile">
+  {{#each list}}
+    <a href="javascript:void(0)" onclick="openCity(event, '{{listname}}');">
+      <div class="w3-third full-width tablink w3-bottombar w3-hover-light-grey w3-padding">{{listname}}</div>
+    </a>
+  {{/each}}
+  <button id="newListBtn" class="pure-button">
+    Neue Liste
+  </button>
+
+</div>
+
+
+<div class="content-div">
+  {{#each list}}
+    <div id="{{listname}}" class="w3-container list w3-animate-zoom" style="display:none">
+      <h2>{{listname}}</h2>
+      <form method="get" action="/list/removelist">
+
+          <input type="text" name="listid" style="display: none" value="{{_id}}">
+          <input type="submit" value="Löschen">
+      </form>
+      <table class="pure-table pure-table-bordered">
+        <thead>
+          <tr>
+              <th>Was</th>
+              <th>Menge</th>
+              <th>Mass</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each content}}
+          <tr>
+            <td>{{name}}</td>
+            <td>{{quantity}}</td>
+            <td>{{currency}}</td>
+            <td>
+                <form method="get" action="/list/removeitem">
+                  <input type="text" name="id" style="display: none" value="{{id}}" />
+                  <input type="text" name="listid" style="display: none" value="{{../_id}}" />
+                  <input type="submit" value="Löschen">
+                </form>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+
+      <button id="newItemBtn" class="pure-button" onclick="openNewItemModal('{{listname}}')">
+        Neues Element
+      </button>
+
+    </div>
+  {{/each}}
+
+</div>
 
 <!-- The Modal -->
-<div id="myModal" class="modal">
+<div id="addItemModal" class="modal">
 
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
     <div class="page-header no-border">
       <div class="row">
-        <h1>test erfassen</h1>
+        <h1>Neues Element erfassen</h1>
       </div>
     </div>
 
@@ -47,9 +87,9 @@
     </div>
 
 
-    <form class="form-horizontal" action="/list/create" method="post">
+    <form class="form-horizontal" action="/list/additem" method="get">
       <div class="row">
-        <legend><i class="fa fa-plus" aria-hidden="true"></i> Test</legend>
+        <legend><i class="fa fa-plus" aria-hidden="true"></i> asdf</legend>
       </div>
 
       <div class="form-group">
@@ -71,6 +111,9 @@
         </div>
       </div>
 
+      <!-- Pass listname in this hidden input -->
+      <input style="display: none" value="" id="_listname" name="listname" type="text">
+
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
           <button type="submit" class="btn btn-primary abmeldebutton">Speichern</button>
@@ -83,30 +126,101 @@
 
 </div>
 
+
+<div id="newListModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="page-header no-border">
+      <div class="row">
+        <h1>Neue Liste</h1>
+      </div>
+    </div>
+
+    <div class="row">
+    {{#if errors.length }}
+      <button class="btn btn-danger">
+        {{#each errors}}
+            {{ this.msg }}<br>
+        {{/each}}
+      </button>
+    {{/if}}
+    </div>
+
+
+    <form class="form-horizontal" action="/list/addlist" method="get">
+      <div class="row">
+        <legend><i class="fa fa-plus" aria-hidden="true"></i> Test</legend>
+      </div>
+
+      <div class="form-group">
+        <label for="listname" class="col-sm-2 control-label">Listenname:</label>
+        <div class="col-sm-6">
+          <input class="form-control naming typeahead" id="listname" name="listname" type="text" placeholder="Listenname">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary abmeldebutton">Erstellen</button>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+
+</div>
 <script>
+function openCity(evt, cityName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("list");
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " w3-red";
+}
+</script>
+
+<script>
+// Get hidden input-field
+var listnameField = document.getElementById('_listname');
 // Get the modal
-var modal = document.getElementById('myModal');
-
+var newListModal = document.getElementById('newListModal');
+var addItemModal = document.getElementById('addItemModal');
 // Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
+var newListBtn = document.getElementById("newListBtn");
+var addItemBtn = document.getElementById("newItemBtn");
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
-
 // When the user clicks the button, open the modal
-btn.onclick = function() {
-    modal.style.display = "block";
+newListBtn.onclick = function() {
+    newListModal.style.display = "block"
 }
-
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
-    modal.style.display = "none";
+    addItemModal.style.display = "none";
+    newListModal.style.display = "none";
 }
-
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+    if (event.target == addItemModal) {
+        addItemModal.style.display = "none";
     }
+    if (event.target == newListModal) {
+        newListModal.style.display = "none";
+    }
+}
+// Open newitem-modal and set listname of selected list
+function openNewItemModal(listname)
+{
+    addItemModal.style.display = "block";
+    listnameField.value = listname;
 }
 </script>

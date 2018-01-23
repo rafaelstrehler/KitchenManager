@@ -104,7 +104,7 @@ function update(actList, callback)
 
 function showData(req, res) {
   List.find({}, (err, lists) => {
-    res.render('test/listtest', {
+    res.render('list/index', {
         list : lists
     });
     allLists = lists;
