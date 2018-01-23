@@ -11,6 +11,7 @@ module.exports = {
 
     // shows the signup form
     showSignup: (req, res) => {
+        console.log("is in signup")
         res.render('login/signup', { message: req.flash('signupMessage') });
     },
 

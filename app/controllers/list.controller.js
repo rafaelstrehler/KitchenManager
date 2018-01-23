@@ -40,8 +40,9 @@ function deleteItem(req, res)
 }
 
 function addList(req, res) {
-  // create a new absence
+  // create a new list
   const newlist = new List({
+    user_id: req.user._id,
     listname: req.query.listname,
     content: [],
     creationdate: new Date(),
@@ -110,11 +111,10 @@ function update(actList, callback)
 }
 
 function showData(req, res) {
-  List.find({}, (err, lists) => {
+  List.find({user_id: req.user._id}, (err, lists) => {
     res.render('list/index', {
         list : lists
     });
     allLists = lists;
-    console.log("this is user: " + req.user + "end!!!");
   }).lean();
 }
