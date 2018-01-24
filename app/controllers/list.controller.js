@@ -26,7 +26,7 @@ function deleteList(req, res)
 
 function deleteItem(req, res)
 {
-  var contentid = parseInt(req.query.id);
+  var contentid = mongoose.Types.ObjectId(req.query.id);
   List.update(
       { _id: mongoose.Types.ObjectId(req.query.listid) },
       { $pull: { content: { id: contentid } } },
@@ -128,16 +128,6 @@ function addItemToList(req, res) {
 
       });
     }
-  }
-}
-
-function getNewItemId(actList)
-{
-  if(actList.content.length == 0)
-    return 0;
-  else {
-    var newid = actList.content[actList.content.length - 1].id + 1;
-    return newid;
   }
 }
 
