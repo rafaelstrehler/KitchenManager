@@ -12,7 +12,9 @@ module.exports = {
   addList : addList,
   addItemToList : addItemToList,
   deleteItem : deleteItem,
-  deleteList : deleteList
+  deleteList : deleteList,
+  editListname : editListname,
+  editItem : editItem
 }
 
 function deleteList(req, res)
@@ -40,8 +42,9 @@ function deleteItem(req, res)
 }
 
 function addList(req, res) {
-  // create a new absence
+  // create a new list
   const newlist = new List({
+    user_id: req.user._id,
     listname: req.query.listname,
     content: [],
     creationdate: new Date(),
@@ -61,6 +64,43 @@ function addList(req, res) {
   });
 }
 
+function editListname(req, res) {
+  List.update(
+    { _id: mongoose.Types.ObjectId(req.query.listid) },
+    { $set: { listname: req.query.newlistname } },
+    function(err, numAffected) {
+      console.log('error: ', err);
+      console.log('numAffected: ', numAffected);
+      var current_list = req.query.listid; //<-- list _id
+      res.redirect('/list?current_list=' + current_list);
+    }
+  )
+}
+
+function editItem(req, res) {
+  var newItem = {
+    name: req.query.name,
+    quantity: req.query.quantity,
+    currency: req.query.currency
+  }
+console.log(req.query);
+
+  List.update({'content.id': req.query.itemid}, {'$set': {
+      'content.name': req.query.name,
+      'content.quantity': req.query.quantity,
+      'content.currency': req.query.currency
+  }},    function(err, numAffected) {
+        console.log('error: ', err);
+        console.log('numAffected: ', numAffected);
+        var current_list = req.query.listid; //<-- list _id
+        res.redirect('/list?current_list=' + current_list);
+      }
+  );
+
+
+
+}
+
 function addItemToList(req, res) {
   var newItem = {
     id: 0,
@@ -74,7 +114,7 @@ function addItemToList(req, res) {
     if(actList._id == req.query.listname)
     {
 
-      newItem.id = getNewItemId(newItem, actList);
+      newItem.id = mongoose.Types.ObjectId();
       actList.content.push(newItem);
       update(actList, function(err, result){
         if(err)
@@ -91,7 +131,7 @@ function addItemToList(req, res) {
   }
 }
 
-function getNewItemId(actItem, actList)
+function getNewItemId(actList)
 {
   if(actList.content.length == 0)
     return 0;
@@ -104,13 +144,13 @@ function getNewItemId(actItem, actList)
 function update(actList, callback)
 {
   actList.changedate = new Date();
-  List.update( {listname: actList.listname}, {$set: actList}, function(err, result) {
+  List.update( {_id: actList._id}, {$set: actList}, function(err, result) {
     callback(err, result);
   });
 }
 
 function showData(req, res) {
-  List.find({}, (err, lists) => {
+  List.find({user_id: req.user._id}, (err, lists) => {
     res.render('list/index', {
         list : lists
     });
