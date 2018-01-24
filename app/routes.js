@@ -32,18 +32,22 @@ module.exports = (app, passport) => {
     // =====================================
     app.get('/signup', loginController.showSignup);
 
-    app.get('/list', listController.showData);
+    app.get('/list', isLoggedIn, listController.showData);
 
-    app.get('/list/addlist', listController.addList);
+    app.get('/list/addlist', isLoggedIn, listController.addList);
 
-    app.get('/list/additem', listController.addItemToList);
+    app.get('/list/additem', isLoggedIn, listController.addItemToList);
 
-    app.get('/list/removelist', listController.deleteList);
+    app.get('/list/removelist', isLoggedIn, listController.deleteList);
 
-    app.get('/list/removeitem', listController.deleteItem);
+    app.get('/list/removeitem', isLoggedIn, listController.deleteItem);
+
+    app.get('/list/editlistname', isLoggedIn, listController.editListname);
+
+    app.get('/list/edititem', isLoggedIn, listController.editItem);
 
     // process the signup form
-    app.post('/signup', isLoggedIn, passport.authenticate('local-signup', {
+    app.post('/signup', passport.authenticate('local-signup', {
         // redirect to the secure profile section
         successRedirect : '/profile',
         // redirect back to the signup page if there is an error
