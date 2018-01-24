@@ -83,12 +83,12 @@ function editItem(req, res) {
     quantity: req.query.quantity,
     currency: req.query.currency
   }
-console.log(req.query);
+  console.log(req.query);
 
-  List.update({'content.id': req.query.itemid}, {'$set': {
-      'content.name': req.query.name,
-      'content.quantity': req.query.quantity,
-      'content.currency': req.query.currency
+  List.update({_id: mongoose.Types.ObjectId(req.query.listid), 'content.id': mongoose.Types.ObjectId(req.query.itemid)}, {$set: {
+      'content.$.name': req.query.name,
+      'content.$.quantity': req.query.quantity,
+      'content.$.currency': req.query.currency
   }},    function(err, numAffected) {
         console.log('error: ', err);
         console.log('numAffected: ', numAffected);
