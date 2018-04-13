@@ -78,13 +78,6 @@ function editListname(req, res) {
 }
 
 function editItem(req, res) {
-  var newItem = {
-    name: req.query.name,
-    quantity: req.query.quantity,
-    currency: req.query.currency
-  }
-  console.log(req.query);
-
   List.update({_id: mongoose.Types.ObjectId(req.query.listid), 'content.id': mongoose.Types.ObjectId(req.query.itemid)}, {$set: {
       'content.$.name': req.query.name,
       'content.$.quantity': req.query.quantity,
@@ -96,9 +89,6 @@ function editItem(req, res) {
         res.redirect('/list?current_list=' + current_list);
       }
   );
-
-
-
 }
 
 function addItemToList(req, res) {

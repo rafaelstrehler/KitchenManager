@@ -10,7 +10,7 @@
 
 <div class="w3-row mobile">
   {{#each list}}
-    <a class="{{_id}}button" href="javascript:void(0)" onclick="openCity(event, '{{listname}}');">
+    <a class="{{_id}}button" href="javascript:void(0)" onclick="openCity(event, '{{_id}}');">
       <div class="w3-third full-width tablink w3-bottombar w3-hover-light-grey w3-padding">{{listname}}</div>
     </a>
   {{/each}}
@@ -23,8 +23,8 @@
 
 <div class="content-div">
   {{#each list}}
-    <div id="{{_id}}" class="w3-container list w3-animate-zoom" style="display:none">
-      
+    <div id="{{_id}}" class="w3-container list w3-animate-left" style="display:none">
+
       <form class="list-title" id="{{_id}}form" method="get" action="/list/removelist">
         <h2 style="display: inline">
           {{listname}}
@@ -217,7 +217,7 @@
           <input class="form-control naming typeahead" id="listnameEditListname" name="newlistname" type="text" placeholder="Listenname">
         </div>
       </div>
-      <input type="hidden" id="idEditListname" name="listid"> 
+      <input type="hidden" id="idEditListname" name="listid">
 
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
@@ -369,14 +369,13 @@ function openCity(evt, cityName) {
   evt.currentTarget.className += " active";
 }
 if (getAllUrlParams().current_list) {
+
 var active_list = document.getElementById(getAllUrlParams().current_list);
 var listid = '.' + getAllUrlParams().current_list +  'button';
 var active_list_button = document.getElementsByClassName(getAllUrlParams().current_list + 'button');
 
-console.log(getAllUrlParams().current_list);
 active_list.style.display = "block";
 jQuery(listid).addClass('active');
-console.log('button: ', jQuery(listid));
 } else {
   jQuery('.content-div > div:first-of-type').css('display', 'block');
   jQuery('.w3-sidebar > button:first-of-type').addClass('active');
